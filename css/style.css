@@ -38,7 +38,7 @@
 }
 
 /* Light Theme Overrides */
-body.theme-light {
+html.theme-light {
   --bg: #f8f9fa;
   --bg-card: rgba(255, 255, 255, 0.8);
   --bg-card-hover: #ffffff;
@@ -132,7 +132,7 @@ ul { list-style: none; }
   backdrop-filter: blur(16px);
   border-bottom-color: var(--border);
 }
-body.theme-light .nav-header.scrolled { background: rgba(248, 249, 250, 0.85); }
+html.theme-light .nav-header.scrolled { background: rgba(248, 249, 250, 0.85); }
 
 .nav-container {
   width: min(100% - 2.5rem, var(--container));
@@ -178,8 +178,8 @@ body.theme-light .nav-header.scrolled { background: rgba(248, 249, 250, 0.85); }
 .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 .theme-toggle .icon-sun { display: none; }
 .theme-toggle .icon-moon { display: block; }
-body.theme-light .theme-toggle .icon-sun { display: block; }
-body.theme-light .theme-toggle .icon-moon { display: none; }
+html.theme-light .theme-toggle .icon-sun { display: block; }
+html.theme-light .theme-toggle .icon-moon { display: none; }
 
 .hamburger {
   display: none;
@@ -218,7 +218,7 @@ body.theme-light .theme-toggle .icon-moon { display: none; }
 }
 
 .btn-primary { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent-glow); }
-body.theme-light .btn-primary { color: #fff; }
+html.theme-light .btn-primary { color: #fff; }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px var(--accent-glow); }
 .btn-outline { border-color: var(--border); color: var(--text); background: var(--bg-card); }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
@@ -293,7 +293,7 @@ body.theme-light .btn-primary { color: #fff; }
 
 .social-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
 
-/* Hero Visual */
+/* Hero Visual (Cool Animated Shape) */
 .hero-visual {
   display: flex;
   justify-content: center;
@@ -303,11 +303,21 @@ body.theme-light .btn-primary { color: #fff; }
   position: relative;
   width: clamp(280px, 30vw, 400px);
   aspect-ratio: 1;
-  /* Removed morphing animation so image stays still */
-  border-radius: 50%;
-  overflow: hidden;
+  background: linear-gradient(135deg, var(--bg-card), var(--bg));
   border: 2px solid var(--border);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  /* Restored the premium morphing shape */
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: morph 8s ease-in-out infinite;
   box-shadow: 0 0 40px var(--accent-glow);
+  pointer-events: none; /* Stops weird hovering */
+}
+
+@keyframes morph {
+  0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
 }
 
 .hero-image {
@@ -315,15 +325,27 @@ body.theme-light .btn-primary { color: #fff; }
   height: 100%;
   object-fit: cover;
   object-position: center;
+  position: absolute;
+  inset: 0;
+}
+
+/* Fallback if image is missing */
+.hero-image-wrapper.image-error::after {
+  content: 'AH';
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-muted);
 }
 
 .hero-image-ring {
   position: absolute;
   inset: 10px;
-  border-radius: 50%;
+  border-radius: inherit; /* Matches morphing shape */
   border: 1px dashed var(--border);
   pointer-events: none;
   animation: spin 20s linear infinite;
+  z-index: -1;
 }
 
 @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -438,7 +460,7 @@ body.theme-light .btn-primary { color: #fff; }
   border: 1px solid var(--border);
   font-size: 0.9rem;
 }
-body.theme-light .skill-item { background: rgba(0, 0, 0, 0.03); }
+html.theme-light .skill-item { background: rgba(0, 0, 0, 0.03); }
 
 .skill-icon { width: 20px; height: 20px; color: var(--accent); }
 
@@ -518,7 +540,7 @@ body.theme-light .skill-item { background: rgba(0, 0, 0, 0.03); }
   border-radius: 999px;
   border: 1px solid rgba(0, 240, 255, 0.2);
 }
-body.theme-light .tech-badge { background: rgba(0, 112, 243, 0.1); border-color: rgba(0, 112, 243, 0.2); }
+html.theme-light .tech-badge { background: rgba(0, 112, 243, 0.1); border-color: rgba(0, 112, 243, 0.2); }
 
 /* --- Education --- */
 .education-grid { display: grid; gap: 1.5rem; }
@@ -543,7 +565,7 @@ body.theme-light .tech-badge { background: rgba(0, 112, 243, 0.1); border-color:
   color: var(--accent);
   flex-shrink: 0;
 }
-body.theme-light .edu-icon { background: rgba(0, 112, 243, 0.1); }
+html.theme-light .edu-icon { background: rgba(0, 112, 243, 0.1); }
 
 .edu-status { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 0.5rem; display: inline-block; }
 .edu-institution { font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.25rem; }
@@ -592,7 +614,7 @@ body.theme-light .edu-icon { background: rgba(0, 112, 243, 0.1); }
   margin-bottom: 1.5rem;
   border: 1px solid rgba(0, 240, 255, 0.1);
 }
-body.theme-light .form-note { background: rgba(0, 112, 243, 0.05); border-color: rgba(0, 112, 243, 0.1); }
+html.theme-light .form-note { background: rgba(0, 112, 243, 0.05); border-color: rgba(0, 112, 243, 0.1); }
 
 .form-group { margin-bottom: 1.25rem; }
 .form-group label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-dim); }
@@ -636,7 +658,7 @@ body.theme-light .form-note { background: rgba(0, 112, 243, 0.05); border-color:
   transition: all 0.3s;
   z-index: 90;
 }
-body.theme-light .back-to-top { color: #fff; }
+html.theme-light .back-to-top { color: #fff; }
 .back-to-top.visible { opacity: 1; visibility: visible; }
 .back-to-top:hover { transform: translateY(-4px); box-shadow: 0 4px 20px var(--accent-glow); }
 
@@ -673,11 +695,11 @@ body.theme-light .back-to-top { color: #fff; }
     transition: transform 0.3s var(--ease);
     z-index: -1;
   }
-  body.theme-light .nav-links { background: rgba(248, 249, 250, 0.98); }
+  html.theme-light .nav-links { background: rgba(248, 249, 250, 0.98); }
   .nav-links.open { transform: translateY(0); }
   .nav-link { padding: 0.5rem; font-size: 1rem; }
   .hamburger { display: flex; }
   .project-features ul { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; }
   .hero-actions .btn { width: 100%; }
-   }
+     }
