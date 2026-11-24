@@ -25,8 +25,19 @@
 
   <!-- CSS Link -->
   <link rel="stylesheet" href="css/style.css" />
+  
+  <script>
+    // Prevent flash of wrong theme on load
+    const savedTheme = localStorage.getItem('ali-theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+      document.documentElement.classList.add('theme-light');
+    } else {
+      document.documentElement.classList.add('theme-dark');
+    }
+  </script>
 </head>
-<body class="theme-dark">
+<body>
 
   <!-- Background Elements -->
   <div class="bg-elements" aria-hidden="true">
@@ -97,7 +108,7 @@
       <div class="hero-visual">
         <div class="hero-image-wrapper">
           <!-- Profile Image connected to assets folder -->
-          <img src="assets/images/profile.jpg" alt="Ali Hussen" class="hero-image" />
+          <img src="assets/images/profile.jpg" alt="Ali Hussen" class="hero-image" onerror="this.style.display='none'; this.parentElement.classList.add('image-error');" />
           <div class="hero-image-ring"></div>
         </div>
       </div>
@@ -227,7 +238,7 @@
       <div class="project-card reveal">
         <div class="project-media">
           <!-- Project Image connected to assets folder -->
-          <img src="assets/images/project-coffee.jpg" alt="Alush Coffee" class="project-img" />
+          <img src="assets/images/project-coffee.jpg" alt="Alush Coffee" class="project-img" onerror="this.style.display='none'; this.parentElement.classList.add('image-error');" />
         </div>
         <div class="project-body">
           <div class="project-header">
@@ -299,7 +310,6 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           </div>
           <div class="edu-content">
-            <!-- Fixed Name: Adama -->
             <h3 class="edu-institution">Adama EXCEL Academy</h3>
             <p class="edu-degree">Previous Education</p>
           </div>
@@ -423,4 +433,4 @@
 
   <script src="js/script.js"></script>
 </body>
-                </html>
+  </html>
