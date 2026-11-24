@@ -7,24 +7,15 @@
 
   /* ---------- THEME TOGGLE (Day/Night Mode) ---------- */
   const themeToggle = document.getElementById('themeToggle');
-  const body = document.body;
-
-  // Check for saved theme preference
-  const currentTheme = localStorage.getItem('ali-theme');
-  if (currentTheme === 'light') {
-    body.classList.remove('theme-dark');
-    body.classList.add('theme-light');
-  }
+  const root = document.documentElement;
 
   themeToggle.addEventListener('click', () => {
-    if (body.classList.contains('theme-dark')) {
-      body.classList.remove('theme-dark');
-      body.classList.add('theme-light');
-      localStorage.setItem('ali-theme', 'light');
-    } else {
-      body.classList.remove('theme-light');
-      body.classList.add('theme-dark');
+    if (root.classList.contains('theme-light')) {
+      root.classList.remove('theme-light');
       localStorage.setItem('ali-theme', 'dark');
+    } else {
+      root.classList.add('theme-light');
+      localStorage.setItem('ali-theme', 'light');
     }
   });
 
