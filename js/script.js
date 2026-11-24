@@ -5,6 +5,29 @@
 (function () {
   'use strict';
 
+  /* ---------- THEME TOGGLE (Day/Night Mode) ---------- */
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  // Check for saved theme preference
+  const currentTheme = localStorage.getItem('ali-theme');
+  if (currentTheme === 'light') {
+    body.classList.remove('theme-dark');
+    body.classList.add('theme-light');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    if (body.classList.contains('theme-dark')) {
+      body.classList.remove('theme-dark');
+      body.classList.add('theme-light');
+      localStorage.setItem('ali-theme', 'light');
+    } else {
+      body.classList.remove('theme-light');
+      body.classList.add('theme-dark');
+      localStorage.setItem('ali-theme', 'dark');
+    }
+  });
+
   /* ---------- NAVIGATION SCROLL EFFECT ---------- */
   const navHeader = document.getElementById('navHeader');
   const onScroll = () => {
@@ -24,7 +47,7 @@
     hamburger.setAttribute('aria-expanded', String(isOpen));
   });
 
-  document.querySelectorAll('.nav-link, .nav-cta').forEach((link) => {
+  document.querySelectorAll('.nav-link').forEach((link) => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
       hamburger.classList.remove('open');
